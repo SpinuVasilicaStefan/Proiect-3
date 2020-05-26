@@ -1,0 +1,58 @@
+﻿@page
+@model PhotoRazor.PhotosModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Afisare Media</h1>
+
+<a asp-page="./Search"><button type="button">Search</button></a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Media
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photos[0].Path)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Photos)
+        {
+        <tr style="font-size:small">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            @if (item.Path.Contains(".mp4"))
+            {
+                <td>
+                    <video width="300" height="300" controls>
+                        <source src="@Url.Content(item.Path)" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <img src="@Url.Content(item.Path)" width="100" height="100">
+
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
+            </td>
+        </tr>
+        
+        }
+    </tbody>
+</table>
+
+
